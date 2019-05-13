@@ -2,12 +2,17 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QPicture>
+#include <QDebug>
 
 class gameWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit gameWidget(int width, int heigth, QWidget *parent);
+
+
+    static QVector<QVector<qint8>> rotate_by_clock_arrow(const QVector<QVector<qint8>>& matrix);
 
     enum Move{
         right,
@@ -17,7 +22,7 @@ public:
     };
 
 signals:
-    void game_over(int score);
+    void check_game_over(int score);
     void update_score(int score);
 
 public slots:
@@ -26,11 +31,14 @@ private:
     QVector<QVector<qint8>> elements;//zero == null
     int score=0;
 
-    bool game_over() const;
+    bool check_game_over() const;
     void end_game();
     void add_new_element();
     QPoint random_free_cell() const;
+
     void move(Move direction);
+
+
 
 };
 

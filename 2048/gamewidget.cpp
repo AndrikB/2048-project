@@ -1,16 +1,16 @@
 #include "gamewidget.h"
-#include <QDebug>
+
 
 gameWidget::gameWidget(int width, int height, QWidget *parent) : QWidget(parent)
 {
-    //elements.clear();
+    elements.clear();
     elements.fill(QVector<qint8>(width, 0), height);
 
     add_new_element();add_new_element();
 
 }
 
-bool gameWidget::game_over() const
+bool gameWidget::check_game_over() const
 {
     int heigth=elements.size();
     int width=elements[0].size();
@@ -64,13 +64,29 @@ QPoint gameWidget::random_free_cell() const
     return free_pos[qrand()%free_pos.size()];
 }
 
+QVector<QVector<qint8> > gameWidget::rotate_by_clock_arrow(const QVector<QVector<qint8> > &matrix)
+{
+    QVector<QVector<qint8>> new_matrix;
+    new_matrix.clear();
+    int width=matrix.size();
+    int heigth=matrix[0].size();
+    new_matrix.fill(QVector<qint8>(width, 0), heigth);
+
+    for (int i=0;i<heigth;i++)
+        for (int j=0;j<width;j++) {
+            new_matrix[i][j]=matrix[width-1-j][i];
+        }
+
+    return new_matrix;
+}
+
 void gameWidget::move(gameWidget::Move direction)
 {
     //todo
 
     add_new_element();
 
-    if (game_over()){end_game(); return;}
+    if (check_game_over()){end_game(); return;}
 
     this->update();//todo update
 
