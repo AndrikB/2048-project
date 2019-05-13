@@ -80,9 +80,46 @@ QVector<QVector<qint8> > gameWidget::rotate_by_clock_arrow(const QVector<QVector
     return new_matrix;
 }
 
-void gameWidget::move(gameWidget::Move direction)
+void gameWidget::move(Move direction)
 {
-    //todo
+    if (direction==Move::top)
+    {
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+    }
+
+    if (direction==Move::left)
+    {
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+    }
+
+    if (direction==Move::right)
+    {
+        elements=rotate_by_clock_arrow(elements);
+    }
+
+    //todo move to bottom
+
+    if (direction==Move::top)
+    {
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+    }
+
+    if (direction==Move::left)
+    {
+        elements=rotate_by_clock_arrow(elements);
+    }
+
+    if (direction==Move::right)
+    {
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+        elements=rotate_by_clock_arrow(elements);
+    }
+
 
     add_new_element();
 
