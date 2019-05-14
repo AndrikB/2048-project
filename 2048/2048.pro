@@ -25,11 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        game.cpp \
         gamewidget.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        game.h \
         gamewidget.h \
         mainwindow.h
 

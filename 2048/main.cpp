@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "gamewidget.h"
+#include "game.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -11,13 +11,13 @@ int main(int argc, char *argv[])
         }
 
     qDebug()<<matrix;
-    matrix=gameWidget::rotate_by_clock_arrow(matrix);
+    matrix=Game::rotate_by_clock_arrow(matrix);
     qDebug()<<matrix;
-    matrix=gameWidget::rotate_by_clock_arrow(matrix);
+    matrix=Game::rotate_by_clock_arrow(matrix);
     qDebug()<<matrix;
-    matrix=gameWidget::rotate_by_clock_arrow(matrix);
+    matrix=Game::rotate_by_clock_arrow(matrix);
     qDebug()<<matrix;
-    matrix=gameWidget::rotate_by_clock_arrow(matrix);
+    matrix=Game::rotate_by_clock_arrow(matrix);
     qDebug()<<matrix;
 
     QApplication a(argc, argv);
