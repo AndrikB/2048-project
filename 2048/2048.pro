@@ -24,6 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+INCLUDEPATH+="test/test/googletest"
+INCLUDEPATH+="test/test/googletest/include"
+INCLUDEPATH+="test/test/googlemock"
+INCLUDEPATH+="test/test/googlemock/include"
+
 SOURCES += \
         game.cpp \
         gamewidget.cpp \

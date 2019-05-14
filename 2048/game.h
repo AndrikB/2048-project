@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPicture>
 #include <QDebug>
+#include <gtest/gtest.h>
 
 class Game
 {
@@ -18,14 +19,6 @@ public:
         top
     };
 
-
-    static QVector<QVector<qint8>> rotate_by_clock_arrow(const QVector<QVector<qint8>>& matrix);
-
-    //from direction to bottom
-    static QVector<QVector<qint8>> rotate_forward(QVector<QVector<qint8> > matrix, const Move& direction);
-
-    //from bottom to direction
-    static QVector<QVector<qint8>> rotate_back( QVector<QVector<qint8>> matrix, const Move& direction);
 
 
 
@@ -45,11 +38,18 @@ private:
     void add_new_element();
     QPoint random_free_cell() const;
 
-    bool move_down(QVector<QVector<qint8>> &matrix);
+    static bool move_down(QVector<QVector<qint8>> &matrix);
     QList<QVector<QVector<qint8>>> move(Move direction);
 
+    static QVector<QVector<qint8>> rotate_by_clock_arrow(const QVector<QVector<qint8>>& matrix);
+
+    static QVector<QVector<qint8>> rotate_forward(QVector<QVector<qint8> > matrix, const Move& direction);
+    static QVector<QVector<qint8>> rotate_back( QVector<QVector<qint8>> matrix, const Move& direction);
 
 
+
+    FRIEND_TEST(Game, rotate_matrix);
+    FRIEND_TEST(Game, move_down);
 
 };
 

@@ -83,6 +83,7 @@ QVector<QVector<qint8> > Game::rotate_by_clock_arrow(const QVector<QVector<qint8
     return new_matrix;
 }
 
+//from direction to bottom
 QVector<QVector<qint8> > Game::rotate_forward(QVector<QVector<qint8> > matrix, const Game::Move &direction)
 {
     if (direction==Move::right)
@@ -105,6 +106,7 @@ QVector<QVector<qint8> > Game::rotate_forward(QVector<QVector<qint8> > matrix, c
     return matrix;
 }
 
+//from bottom to direction
 QVector<QVector<qint8> > Game::rotate_back(QVector<QVector<qint8> > matrix, const Game::Move &direction)
 {
     if (direction==Move::right)
@@ -135,7 +137,7 @@ bool Game::move_down(QVector<QVector<qint8> > &matrix)
     int width=matrix[0].size();
     for (int i=0;i<width;i++)//for all column
     {
-        for (int j=height-1;j>1;j--)
+        for (int j=height-1;j>0;j--)
         {
             if (matrix[j][i]==0 && matrix[j-1][i]!=0)
             {
