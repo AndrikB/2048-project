@@ -8,7 +8,7 @@ class GameWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameWidget(int height, int width, QWidget *parent );
+    explicit GameWidget(int width, int height, QWidget *parent );
 
     void move(Game::Move move_to);
 signals:
@@ -16,7 +16,12 @@ signals:
 public slots:
 
 private:
-    Game game;
+    Game *game;
+    QTimer timer;
+    QList<QVector<QVector<qint8>>> list_board;
+
+    void end_game();
+    void paintEvent(QPaintEvent*);
 };
 
 #endif // GAMEWIDGET_H
