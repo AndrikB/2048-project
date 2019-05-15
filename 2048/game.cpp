@@ -163,16 +163,17 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
 
     bool was_changes=false;
     do{
-        was_changes=false;
+        was_changes=move_down(elements);
+        if (was_changes)
+            list_board.push_back(rotate_back(elements, direction));
 
     }while (was_changes==true);
-    //todo move to bottom
-
 
     elements=rotate_back(elements, direction);
 
-
-    add_new_element();
+    if (!list_board.isEmpty())
+        add_new_element();
+    else list_board.push_back(elements);
 
     if (check_game_over()){end_game(); return QList<QVector<QVector<qint8>>>();}
 
