@@ -49,7 +49,8 @@ private:
 
 
     FRIEND_TEST(Game, rotate_matrix);
-    FRIEND_TEST(Game, move_down);
+    FRIEND_TEST(Game, move_down1);
+    FRIEND_TEST(Game, move_down2);
 
 };
 

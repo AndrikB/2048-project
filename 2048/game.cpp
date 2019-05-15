@@ -161,6 +161,11 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
     QList<QVector<QVector<qint8>>> list_board;
     elements=rotate_forward(elements,direction);
 
+    bool was_changes=false;
+    do{
+        was_changes=false;
+
+    }while (was_changes==true);
     //todo move to bottom
 
 
