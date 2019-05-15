@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPicture>
 #include <QDebug>
+#include <QTimer>
 #include <gtest/gtest.h>
 
 class Game
@@ -18,6 +19,11 @@ public:
         left,
         top
     };
+
+    QList<QVector<QVector<qint8>>> move(Move direction);
+
+    int get_score(){return score;}
+
 
 
 
@@ -39,7 +45,6 @@ private:
     QPoint random_free_cell() const;
 
     static bool move_down(QVector<QVector<qint8>> &matrix);
-    QList<QVector<QVector<qint8>>> move(Move direction);
 
     static QVector<QVector<qint8>> rotate_by_clock_arrow(const QVector<QVector<qint8>>& matrix);
 

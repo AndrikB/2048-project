@@ -159,16 +159,14 @@ bool Game::move_down(QVector<QVector<qint8> > &matrix)
 QList<QVector<QVector<qint8>>> Game::move(Move direction)
 {
     QList<QVector<QVector<qint8>>> list_board;
-    elements=rotate_forward(elements,direction);
 
+    elements=rotate_forward(elements,direction);
     bool was_changes=false;
     do{
         was_changes=move_down(elements);
         if (was_changes)
             list_board.push_back(rotate_back(elements, direction));
-
-    }while (was_changes==true);
-
+    }while (was_changes);
     elements=rotate_back(elements, direction);
 
     if (!list_board.isEmpty())

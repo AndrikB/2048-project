@@ -16,7 +16,7 @@ signals:
 public slots:
 
 private:
-    Game game();
+    Game game;
 };
 
 #endif // GAMEWIDGET_H
