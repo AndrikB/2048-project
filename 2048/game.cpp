@@ -158,6 +158,8 @@ bool Game::move_down(QVector<QVector<qint8> > &matrix)
 
 QList<QVector<QVector<qint8>>> Game::move(Move direction)
 {
+    if (direction==Move::none) return QList<QVector<QVector<qint8>>>{elements};
+
     QList<QVector<QVector<qint8>>> list_board;
 
     elements=rotate_forward(elements,direction);
