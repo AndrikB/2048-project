@@ -1,5 +1,6 @@
 #include "gamewidget.h"
 #include <QPainter>
+#include <QMouseEvent>
 GameWidget::GameWidget(int width, int height, QWidget *parent) : QWidget(parent)
 {
 
@@ -16,15 +17,40 @@ GameWidget::GameWidget(int width, int height, QWidget *parent) : QWidget(parent)
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 }
 
+void GameWidget::mousePressEvent(QMouseEvent * e)
+{
+    startPos = e->pos();
+}
+
+void GameWidget::mouseReleaseEvent(QMouseEvent * e)
+{
+    QPoint endPos = e->pos();
+    if (endPos==startPos)return;
+    float dX = (float)(endPos.x() - startPos.x());
+    float dY = (float)(endPos.y() - startPos.y());
+    if(abs(dX) > abs(dY)){
+        if(dX > 0)
+            move (Game::Move::right);
+        else
+           move(Game::Move::left);
+    }else{
+        if(dY > 0)
+            move(Game::Move::bottom);
+        else
+            move(Game::Move::top);
+    }
+}
+
 void GameWidget::move(Game::Move move_to)
 {
+    qDebug()<<endl<<endl;
     list_board=game->move(move_to);
 
     if (list_board.isEmpty()) {
         end_game();
     }
 
-    timer.start(10);//todo change for best visualization
+    timer.start(50);//todo change for best visualization
 
 
 }
@@ -110,7 +136,6 @@ void GameWidget::paintEvent(QPaintEvent *)
 
         }
 
-    qDebug()<<list_board;
 
     if (list_board.size()==1){
         timer.stop();

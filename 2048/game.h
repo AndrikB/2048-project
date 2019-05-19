@@ -37,6 +37,7 @@ public slots:
 
 private:
     QVector<QVector<qint8>> elements;//zero == null
+    QVector<QVector<bool>> elements_was_changes;
     int score=0;
     QVector<int> values_elements={2,4,8,16,32,64,128,256,512,1024,2048,4096};
 
@@ -45,7 +46,7 @@ private:
     void add_new_element();
     QPoint random_free_cell() const;
 
-    static bool move_down(QVector<QVector<qint8>> &matrix);
+    bool move_down();
 
     static QVector<QVector<qint8>> rotate_by_clock_arrow(const QVector<QVector<qint8>>& matrix);
 

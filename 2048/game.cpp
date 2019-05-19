@@ -50,7 +50,7 @@ void Game::add_new_element()
 {
     QPoint pos=random_free_cell();
     if (pos.x()==-1) {exit(-1);}
-    elements[pos.y()][pos.x()]=qrand()%2+1;
+    elements[pos.y()][pos.x()]=(qrand()%10+1)/10+1;
 }
 
 QPoint Game::random_free_cell() const
@@ -130,24 +130,26 @@ QVector<QVector<qint8> > Game::rotate_back(QVector<QVector<qint8> > matrix, cons
 }
 
 
-bool Game::move_down(QVector<QVector<qint8> > &matrix)
+bool Game::move_down()
 {
     bool was_changes=false;
-    int height=matrix.size();
-    int width=matrix[0].size();
+    int height=elements.size();
+    int width=elements[0].size();
     for (int i=0;i<width;i++)//for all column
     {
         for (int j=height-1;j>0;j--)
         {
-            if (matrix[j][i]==0 && matrix[j-1][i]!=0)
+            if (elements[j][i]==0 && elements[j-1][i]!=0)
             {
-                std::swap(matrix[j][i], matrix[j-1][i]);
+                std::swap(elements[j][i], elements[j-1][i]);
+                std::swap(elements_was_changes[j][i], elements_was_changes[j-1][i]);
                 was_changes=true;
             }
-            else if (matrix[j][i]!=0 && matrix[j][i]==matrix[j-1][i])
+            else if (elements[j][i]!=0 && elements[j][i]==elements[j-1][i]&&!elements_was_changes[j][i]&&! elements_was_changes[j-1][i])
             {
-                matrix[j][i]++;
-                matrix[j-1][i]=0;
+                elements[j][i]++;
+                elements_was_changes[j][i]=true;
+                elements[j-1][i]=0;
                 was_changes=true;
             }
         }
@@ -158,6 +160,11 @@ bool Game::move_down(QVector<QVector<qint8> > &matrix)
 
 QList<QVector<QVector<qint8>>> Game::move(Move direction)
 {
+    qDebug()<<"game::move";
+    int height=elements.size();
+    int width=elements[0].size();
+    elements_was_changes.clear();
+    elements_was_changes.fill(QVector<bool>(width, 0), height);
     if (direction==Move::none) return QList<QVector<QVector<qint8>>>{elements};
 
     QList<QVector<QVector<qint8>>> list_board;
@@ -165,7 +172,8 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
     elements=rotate_forward(elements,direction);
     bool was_changes=false;
     do{
-        was_changes=move_down(elements);
+        qDebug()<<rotate_back(elements, direction);
+        was_changes=move_down();
         if (was_changes)
             list_board.push_back(rotate_back(elements, direction));
     }while (was_changes);
@@ -173,9 +181,11 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
 
     if (!list_board.isEmpty())
         add_new_element();
-    else list_board.push_back(elements);
+    list_board.push_back(elements);
+    qDebug()<<elements;
 
     if (check_game_over()){end_game(); return QList<QVector<QVector<qint8>>>();}
 
+    qDebug()<<"end game::move";
     return list_board;
 }

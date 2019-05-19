@@ -21,6 +21,9 @@ private:
     QList<QVector<QVector<qint8>>> list_board;
     int count_width, count_height;
 
+    QPoint startPos;
+    void mousePressEvent(QMouseEvent * );
+    void mouseReleaseEvent(QMouseEvent *);
 
     void paintEvent(QPaintEvent*);
     QColor return_color_cell(int i);
