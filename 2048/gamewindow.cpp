@@ -6,7 +6,7 @@ GameWindow::GameWindow(QWidget *parent) :
     ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
-    gw = new GameWidget(4, 4, this);
+    gw = new GameWidget(8, 5, this);
     ui->gameLayout->addWidget(gw);
 }
 

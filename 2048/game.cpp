@@ -161,15 +161,17 @@ bool Game::move_down()
 QList<QVector<QVector<qint8>>> Game::move(Move direction)
 {
     qDebug()<<"game::move";
-    int height=elements.size();
-    int width=elements[0].size();
-    elements_was_changes.clear();
-    elements_was_changes.fill(QVector<bool>(width, 0), height);
     if (direction==Move::none) return QList<QVector<QVector<qint8>>>{elements};
 
     QList<QVector<QVector<qint8>>> list_board;
 
     elements=rotate_forward(elements,direction);
+
+    int height=elements.size();
+    int width=elements[0].size();
+    elements_was_changes.clear();
+    elements_was_changes.fill(QVector<bool>(width, 0), height);
+
     bool was_changes=false;
     do{
         qDebug()<<rotate_back(elements, direction);
