@@ -25,7 +25,7 @@ public:
 
     int get_score(){return score;}
 
-    QString return_value_cell(int i){return (i==0)?QString():QString::number(values_elements[i-1]);}
+    QString return_value_cell(int i);
 
 
 

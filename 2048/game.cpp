@@ -191,3 +191,10 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
     qDebug()<<"end game::move";
     return list_board;
 }
+
+QString Game::return_value_cell(int i)
+{
+    if (i==0) return QString();
+    while (i>values_elements.size()) values_elements.push_back(values_elements.last()*2);
+    return QString::number(values_elements[i-1]);
+}

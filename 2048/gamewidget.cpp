@@ -55,6 +55,12 @@ void GameWidget::move(Game::Move move_to)
 
 }
 
+void GameWidget::change_images(QPicture big_image)
+{
+    const QSize image_size(150, 150);
+    //todo
+}
+
 
 
 QColor GameWidget::return_color_cell(int i)
@@ -121,18 +127,24 @@ void GameWidget::paintEvent(QPaintEvent *)
 
             QRect rect(static_cast<int>(buf+(buf+width)*j) , static_cast<int>(buf+(buf+height)*i),
                        static_cast<int>(width), static_cast<int>(height));
-            QString text= game->return_value_cell(list_board.first()[i][j]);
-
-            painter.setBrush(return_color_cell(list_board.first()[i][j])); painter.setPen(painter.brush().color());
-            painter.drawRoundedRect(rect, 10, 10);
-            if (!text.isEmpty()) {
-                int fontSize=static_cast<int>(qMin(width/text.size(), height*0.8));
-
-                painter.setFont(QFont("Arial", fontSize));
-                painter.setPen(return_color_text(list_board.first()[i][j]));
-
-                painter.drawText(rect, Qt::AlignCenter|Qt::NoTextInteraction,text);
+            if (pictures.size()>list_board.first()[i][j]) {
+                pictures[list_board.first()[i][j]].paint(&painter, rect);
             }
+            else {
+                QString text= game->return_value_cell(list_board.first()[i][j]);
+
+                painter.setBrush(return_color_cell(list_board.first()[i][j])); painter.setPen(painter.brush().color());
+                painter.drawRoundedRect(rect, 10, 10);
+                if (!text.isEmpty()) {
+                    int fontSize=static_cast<int>(qMin(width/text.size(), height*0.8));
+
+                    painter.setFont(QFont("Arial", fontSize));
+                    painter.setPen(return_color_text(list_board.first()[i][j]));
+
+                    painter.drawText(rect, Qt::AlignCenter|Qt::NoTextInteraction,text);
+                }
+            }
+
 
         }
 
