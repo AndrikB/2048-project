@@ -54,10 +54,25 @@ void GameWidget::move(Game::Move move_to)
 
 }
 
-void GameWidget::change_images(QPicture big_image)
+void GameWidget::change_images(QImage big_image)
 {
     const QSize image_size(150, 150);
+    images.clear();
     //todo
+    int count_images=big_image.width()/image_size.width();
+    for (int i=0;i<count_images;i++) {
+        QImage new_image;
+        new_image=big_image.copy(i*image_size.width(), 0, image_size.width(), image_size.height());
+        images.push_back(new_image);
+    }
+
+    this->update();
+}
+
+void GameWidget::clear_images()
+{
+    images.clear();
+    this->update();
 }
 
 
@@ -126,8 +141,8 @@ void GameWidget::paintEvent(QPaintEvent *)
 
             QRect rect(static_cast<int>(buf+(buf+width)*j) , static_cast<int>(buf+(buf+height)*i),
                        static_cast<int>(width), static_cast<int>(height));
-            if (pictures.size()>list_board.first()[i][j]) {
-                pictures[list_board.first()[i][j]].paint(&painter, rect);
+            if (images.size()>list_board.first()[i][j]) {
+                painter.drawImage(rect, images[list_board.first()[i][j]]);
             }
             else {
                 QString text= game->return_value_cell(list_board.first()[i][j]);

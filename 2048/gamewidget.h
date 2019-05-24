@@ -12,7 +12,8 @@ public:
     explicit GameWidget(int count_width, int count_height, QWidget *parent );
 
     void move(Game::Move move_to);
-    void change_images(QPicture big_image);
+    void change_images(QImage big_image);
+    void clear_images();
 signals:
 
 public slots:
@@ -31,7 +32,7 @@ private:
     QColor return_color_cell(int i);
     QColor return_color_text(int i);
 
-    QVector<QIcon> pictures;
+    QVector<QImage> images;
 
     void end_game();
 };
