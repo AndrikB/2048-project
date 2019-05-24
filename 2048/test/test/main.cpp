@@ -19,55 +19,59 @@ TEST(Game, rotate_matrix){
 }
 
 TEST(Game, move_down1){
+
     int height=2;
     int width=4;
+    Game g(width,height);
     QVector<QVector<qint8>> matrix{ {0,0,1,1}, {0,1,0,1}};
-    QVector<QVector<qint8>> matrix_copy(matrix);
-    EXPECT_TRUE(Game::move_down(matrix_copy));
+    g.elements=matrix;
+    g.elements_was_changes.fill(QVector<bool>(width, 0), height);
+    EXPECT_TRUE(g.move_down());
     for (int i=0;i<width;i++) {
-        EXPECT_EQ(matrix_copy[0][i],0);
-        if (i==0) EXPECT_EQ(matrix_copy[1][i], 0);
-        else if (i==3) EXPECT_EQ(matrix_copy[1][i], 2);
-        else  EXPECT_EQ(matrix_copy[1][i], 1);
+        EXPECT_EQ(g.elements[0][i],0);
+        if (i==0) EXPECT_EQ(g.elements[1][i], 0);
+        else if (i==3) EXPECT_EQ(g.elements[1][i], 2);
+        else  EXPECT_EQ(g.elements[1][i], 1);
     }
 
-
-    EXPECT_FALSE(Game::move_down(matrix_copy));
+    EXPECT_FALSE(g.move_down());
 }
 
 TEST(Game, move_down2){
-    int height=2;
+    int height=3;
     int width=8;
     QVector<QVector<qint8>> matrix{ {0,0,0,0,1,1,1,1,},
                                     {0,0,1,1,0,0,1,1},
                                     {0,1,0,1,0,1,0,1}};
-    QVector<QVector<qint8>> matrix_copy(matrix);
-    EXPECT_TRUE(Game::move_down(matrix_copy));
+    Game g(width,height);
+    g.elements=matrix;
+    g.elements_was_changes.fill(QVector<bool>(width, 0), height);
+    EXPECT_TRUE(g.move_down());
     for (int i=0;i<width;i++) {
-        EXPECT_EQ(matrix_copy[0][i],0);
+        EXPECT_EQ(g.elements[0][i],0);
 
-        if (i<4) EXPECT_EQ(matrix_copy[1][i], 0);
-        else  EXPECT_EQ(matrix_copy[1][i], 1);
+        if (i<4) EXPECT_EQ(g.elements[1][i], 0);
+        else  EXPECT_EQ(g.elements[1][i], 1);
 
-        if (i==0||i==4) EXPECT_EQ(matrix_copy[2][i], 0);
-        else if (i<7&&i!=3) EXPECT_EQ(matrix_copy[2][i], 1)<<i<<' '<<matrix_copy[2][i];
-        else  EXPECT_EQ(matrix_copy[2][i], 2)<<i<<' '<<matrix_copy[2][i];
+        if (i==0||i==4) EXPECT_EQ(g.elements[2][i], 0);
+        else if (i<7&&i!=3) EXPECT_EQ(g.elements[2][i], 1)<<i<<' '<<g.elements[2][i];
+        else  EXPECT_EQ(g.elements[2][i], 2)<<i<<' '<<g.elements[2][i];
     }
 
-    EXPECT_TRUE(Game::move_down(matrix_copy));
+    EXPECT_TRUE(g.move_down());
     for (int i=0;i<width;i++) {
-        EXPECT_EQ(matrix_copy[0][i],0);
+        EXPECT_EQ(g.elements[0][i],0);
 
-        if (i!=7) EXPECT_EQ(matrix_copy[1][i],0);
-        else EXPECT_EQ(matrix_copy[1][i],1);
+        if (i!=7) EXPECT_EQ(g.elements[1][i],0);
+        else EXPECT_EQ(g.elements[1][i],1);
 
 
-        if (i==0) EXPECT_EQ(matrix_copy[2][i], 0);
-        else if (i<5&&i!=3) EXPECT_EQ(matrix_copy[2][i], 1);
-        else  EXPECT_EQ(matrix_copy[2][i], 2);
+        if (i==0) EXPECT_EQ(g.elements[2][i], 0);
+        else if (i<5&&i!=3) EXPECT_EQ(g.elements[2][i], 1);
+        else  EXPECT_EQ(g.elements[2][i], 2);
     }
 
-    EXPECT_FALSE(Game::move_down(matrix_copy));
+    EXPECT_FALSE(g.move_down());
 
 }
 

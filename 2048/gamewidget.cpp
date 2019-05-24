@@ -43,7 +43,6 @@ void GameWidget::mouseReleaseEvent(QMouseEvent * e)
 
 void GameWidget::move(Game::Move move_to)
 {
-    qDebug()<<endl<<endl;
     list_board=game->move(move_to);
 
     if (list_board.isEmpty()) {
