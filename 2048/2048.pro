@@ -33,19 +33,16 @@ SOURCES += \
         game.cpp \
         gamewidget.cpp \
         main.cpp \
-        mainwindow.cpp \
     gamewindow.cpp \
     gamewindow.cpp
 
 HEADERS += \
         game.h \
         gamewidget.h \
-        mainwindow.h \
     gamewindow.h \
     gamewindow.h
 
 FORMS += \
-        mainwindow.ui \
     gamewindow.ui \
     gamewindow.ui
 
