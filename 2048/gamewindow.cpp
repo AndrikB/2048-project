@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -61,7 +62,7 @@ QString GameWindow::score_fileName(int width, int height)
 void GameWindow::new_game(int width, int height)
 {
     count_width=width; count_height=height;
-    //todo
+    //todo new game in gamewidget
 
     score_FileName=score_fileName(width, height);
     QFile f1(score_FileName);
@@ -80,12 +81,9 @@ void GameWindow::new_game(int width, int height)
 
 void GameWindow::on_actionNew_game_triggered()
 {
-    QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,"New game", "Do you really want to start new game?",
-                                      QMessageBox::Yes | QMessageBox::No);
-        if(reply == QMessageBox::Yes){
-            //todo
-        }
+    window=new SettingsWindow(count_width, count_height, this);
+    connect(window, SIGNAL(set(int,int)), this, SLOT(new_game(int, int)));
+    window->show();
 
 }
 

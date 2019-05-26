@@ -32,7 +32,7 @@ bool Game::check_game_over() const
         if(elements[i][3] == elements[i+1][3])
             return false;
     }
-    for(int j = 0; j < width; j++){
+    for(int j = 0; j < width-1; j++){
         if(elements[3][j] == elements[3][j+1])
             return false;
     }
@@ -43,6 +43,7 @@ bool Game::check_game_over() const
 
 void Game::end_game()
 {
+    qDebug()<<"lose";
     //todo
 }
 
@@ -179,10 +180,12 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
         if (was_changes)
             list_board.push_back(rotate_back(elements, direction));
     }while (was_changes);
+    qDebug()<<"end move";
     elements=rotate_back(elements, direction);
 
     if (!list_board.isEmpty())
         add_new_element();
+    qDebug()<<"add el";
     list_board.push_back(elements);
     qDebug()<<elements;
 

@@ -111,6 +111,7 @@
      <string>game</string>
     </property>
     <addaction name="actionNew_game"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menugame"/>

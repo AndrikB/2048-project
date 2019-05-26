@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "gamewidget.h"
+#include "settingswindow.h"
 
 namespace Ui {
 class GameWindow;
@@ -31,13 +32,15 @@ private slots:
 
     void on_actionRoman_numbers_triggered();
 
+    void new_game(int width, int height);
+
 private:
     void keyPressEvent(QKeyEvent*);
-    void new_game(int width, int height);
     QString score_fileName(int width, int height);
     QString score_FileName;
     Ui::GameWindow *ui;
     GameWidget *gw;
+    SettingsWindow* window;
     int count_width=4, count_height=4;
 };
 
