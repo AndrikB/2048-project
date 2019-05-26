@@ -34,6 +34,14 @@ private slots:
 
     void new_game(int width, int height);
 
+    void on_actionCar_triggered();
+
+    void on_actionPink_triggered();
+
+    void on_actionGreen_triggered();
+
+    void on_actionBlue_triggered();
+
 private:
     void keyPressEvent(QKeyEvent*);
     QString score_fileName(int width, int height);

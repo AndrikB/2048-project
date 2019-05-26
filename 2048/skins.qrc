@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/resource">
         <file>skins/Roman_numeralsforMy2048.jpg</file>
+        <file>skins/blueforMy2048.jpg</file>
+        <file>skins/greenforMy2048.jpg</file>
+        <file>skins/mycarforMy2048.jpg</file>
+        <file>skins/pinkforMy2048.jpg</file>
     </qresource>
 </RCC>

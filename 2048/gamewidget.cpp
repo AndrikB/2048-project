@@ -47,6 +47,7 @@ void GameWidget::move(Game::Move move_to)
 
     if (list_board.isEmpty()) {
         end_game();
+        return;
     }
 
     timer.start(50);//todo change for best visualization

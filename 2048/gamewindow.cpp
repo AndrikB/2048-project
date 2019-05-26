@@ -121,3 +121,23 @@ void GameWindow::on_actionRoman_numbers_triggered()
 }
 
 
+
+void GameWindow::on_actionCar_triggered()
+{
+    gw->change_images(QImage(":/resource/skins/mycarforMy2048.jpg"));
+}
+
+void GameWindow::on_actionPink_triggered()
+{
+    gw->change_images(QImage(":/resource/skins/pinkforMy2048.jpg"));
+}
+
+void GameWindow::on_actionGreen_triggered()
+{
+    gw->change_images(QImage(":/resource/skins/greenforMy2048.jpg"));
+}
+
+void GameWindow::on_actionBlue_triggered()
+{
+    gw->change_images(QImage(":/resource/skins/blueforMy2048.jpg"));
+}

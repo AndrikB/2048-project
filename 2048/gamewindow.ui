@@ -100,9 +100,19 @@
     <property name="title">
      <string>skins</string>
     </property>
+    <widget class="QMenu" name="menuColors">
+     <property name="title">
+      <string>Colors</string>
+     </property>
+     <addaction name="actionPink"/>
+     <addaction name="actionGreen"/>
+     <addaction name="actionBlue"/>
+    </widget>
     <addaction name="actionStandart"/>
     <addaction name="separator"/>
     <addaction name="actionRoman_numbers"/>
+    <addaction name="actionCar"/>
+    <addaction name="menuColors"/>
     <addaction name="separator"/>
     <addaction name="actionCustom"/>
    </widget>
@@ -150,6 +160,26 @@
   <action name="actionRoman_numbers">
    <property name="text">
     <string>Roman numbers</string>
+   </property>
+  </action>
+  <action name="actionPink">
+   <property name="text">
+    <string>Pink</string>
+   </property>
+  </action>
+  <action name="actionGreen">
+   <property name="text">
+    <string>Green</string>
+   </property>
+  </action>
+  <action name="actionBlue">
+   <property name="text">
+    <string>Blue</string>
+   </property>
+  </action>
+  <action name="actionCar">
+   <property name="text">
+    <string>Car</string>
    </property>
   </action>
  </widget>
