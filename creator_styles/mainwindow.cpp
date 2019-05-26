@@ -25,7 +25,10 @@ void MainWindow::on_add_next_clicked()
     ui->save_as->setDisabled(false);
     ui->delete_last_image->setDisabled(false);
     QPair<QHBoxLayout, QPair<QPushButton, QLabel>> *element =new  QPair<QHBoxLayout, QPair<QPushButton, QLabel>>;
-    element->second.first.setText("change photo");element->first.addWidget(&element->second.first);
+    int number;
+    if (layouts.size()==0)number=0;
+    else number=static_cast<int>(pow(2,layouts.size()));
+    element->second.first.setText("change photo "+QString::number(number));element->first.addWidget(&element->second.first);
     element->first.addWidget( &element->second.second);
     layouts.push_back(element);
     connect(&element->second.first, SIGNAL(clicked()), this, SLOT(change_image()));
