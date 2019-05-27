@@ -6,10 +6,12 @@
 #include <QDebug>
 #include <QTimer>
 #include <gtest/gtest.h>
+#include <QObject>
 
-class Game
+class Game:public QObject
 {
 
+    Q_OBJECT
 public:
     Game(int width, int height);
 
@@ -30,8 +32,8 @@ public:
 
 
 signals:
-    void check_game_over(int score);
-    void update_score(int score);
+    void end_game(int score);
+    void change_score(int score);
 
 public slots:
 

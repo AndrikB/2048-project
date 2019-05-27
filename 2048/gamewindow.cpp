@@ -13,8 +13,8 @@ GameWindow::GameWindow(QWidget *parent) :
     gw = new GameWidget(4, 4, this);
     ui->gameLayout->addWidget(gw);
     new_game(count_width,count_height);
-    connect(gw, SIGNAL(change_score(int)), this, SLOT(change_score(int)));
-    connect(gw, SIGNAL(end_game(int)), this, SLOT(end_game(int)));
+    connect(gw, SIGNAL(changeScore(int)), this, SLOT(change_score(int)));
+    connect(gw, SIGNAL(endGame(int)), this, SLOT(end_game(int)));
 }
 
 GameWindow::~GameWindow()
@@ -29,13 +29,16 @@ void GameWindow::change_score(int score)
 
 void GameWindow::end_game(int score)
 {
+    change_score(score);
     QMessageBox::information(this, "You lose", "Start new game");
+    int HightScore=-1;
     QFile f1(score_FileName);
-    f1.open(QFile::ReadOnly);
-    QTextStream txt(&f1);
-    int HightScore;
-    txt>>HightScore;
-    f1.close();
+    if (f1.open(QFile::ReadOnly)){
+        QTextStream txt(&f1);
+        txt>>HightScore;
+        f1.close();
+    }
+
     if (score>HightScore){
         f1.open(QFile::WriteOnly|QFile::Truncate);
         QTextStream txt(&f1);
@@ -62,7 +65,8 @@ QString GameWindow::score_fileName(int width, int height)
 void GameWindow::new_game(int width, int height)
 {
     count_width=width; count_height=height;
-    //todo new game in gamewidget
+
+    gw->new_game(count_width,count_height);
 
     score_FileName=score_fileName(width, height);
     QFile f1(score_FileName);

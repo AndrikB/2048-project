@@ -14,7 +14,11 @@ public:
     void move(Game::Move move_to);
     void change_images(QImage big_image);
     void clear_images();
+    void new_game(int width, int height);
+
 signals:
+    void endGame(int score);
+    void changeScore(int score);
 
 public slots:
 
@@ -34,7 +38,11 @@ private:
 
     QVector<QImage> images;
 
-    void end_game();
+
+private slots:
+    void end_game(int);
+    void change_score(int);
+
 };
 
 #endif // GAMEWIDGET_H

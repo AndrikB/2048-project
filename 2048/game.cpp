@@ -29,11 +29,11 @@ bool Game::check_game_over() const
         }
     }
     for(int i = 0; i < height-1; i++){
-        if(elements[i][3] == elements[i+1][3])
+        if(elements[i][width-1] == elements[i+1][width-1])
             return false;
     }
     for(int j = 0; j < width-1; j++){
-        if(elements[3][j] == elements[3][j+1])
+        if(elements[height-1][j] == elements[height-1][j+1])
             return false;
     }
 
@@ -148,10 +148,12 @@ bool Game::move_down()
             }
             else if (elements[j][i]!=0 && elements[j][i]==elements[j-1][i]&&!elements_was_changes[j][i]&&! elements_was_changes[j-1][i])
             {
+
                 elements[j][i]++;
                 elements_was_changes[j][i]=true;
                 elements[j-1][i]=0;
                 was_changes=true;
+                score+=return_value_cell(elements[j][i]).toInt();
             }
         }
     }
@@ -189,9 +191,10 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
     list_board.push_back(elements);
     qDebug()<<elements;
 
-    if (check_game_over()){end_game(); return QList<QVector<QVector<qint8>>>();}
+    if (check_game_over()){end_game(); emit(end_game(score)); return list_board;}
 
     qDebug()<<"end game::move";
+    emit (change_score(score));
     return list_board;
 }
 

@@ -12,6 +12,8 @@ GameWidget::GameWidget(int width, int height, QWidget *parent) : QWidget(parent)
     count_width=width;
     count_height=height;
     game=new Game(width,height);
+    connect(game, SIGNAL(end_game(int)), this, SLOT(end_game(int)));
+    connect(game, SIGNAL(change_score(int)), this, SLOT(change_score(int)));
     move(Game::Move::none);
     update();
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
@@ -45,10 +47,6 @@ void GameWidget::move(Game::Move move_to)
 {
     list_board=game->move(move_to);
 
-    if (list_board.isEmpty()) {
-        end_game();
-        return;
-    }
 
     timer.start(50);//todo change for best visualization
 
@@ -74,6 +72,18 @@ void GameWidget::clear_images()
 {
     images.clear();
     this->update();
+}
+
+void GameWidget::new_game(int width, int height)
+{
+    delete game;
+    count_width=width;
+    count_height=height;
+    game=new Game(width,height);
+    connect(game, SIGNAL(end_game(int)), this, SLOT(end_game(int)));
+    connect(game, SIGNAL(change_score(int)), this, SLOT(change_score(int)));
+    move(Game::Move::none);
+    update();update();update();
 }
 
 
@@ -166,6 +176,7 @@ void GameWidget::paintEvent(QPaintEvent *)
 
     if (list_board.size()==1){
         timer.stop();
+        //todo set "check lose" here
         return;
     }
     list_board.removeFirst();
@@ -173,7 +184,13 @@ void GameWidget::paintEvent(QPaintEvent *)
 }
 
 
-void GameWidget::end_game()
+void GameWidget::end_game(int score)
 {
-    //todo
+    emit (endGame(score));
+
+}
+
+void GameWidget::change_score(int score)
+{
+    emit (changeScore(score));
 }
