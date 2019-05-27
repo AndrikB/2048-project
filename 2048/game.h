@@ -27,12 +27,13 @@ public:
 
     int get_score(){return score;}
 
+    bool check_game_over() const;
+
     QString return_value_cell(int i);
 
 
 
 signals:
-    void end_game(int score);
     void change_score(int score);
 
 public slots:
@@ -43,7 +44,6 @@ private:
     int score=0;
     QVector<int> values_elements={2,4,8,16,32,64,128,256,512,1024,2048,4096};
 
-    bool check_game_over() const;
     void end_game();
     void add_new_element();
     QPoint random_free_cell() const;

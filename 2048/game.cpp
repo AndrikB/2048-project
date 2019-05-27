@@ -191,8 +191,6 @@ QList<QVector<QVector<qint8>>> Game::move(Move direction)
     list_board.push_back(elements);
     qDebug()<<elements;
 
-    if (check_game_over()){end_game(); emit(end_game(score)); return list_board;}
-
     qDebug()<<"end game::move";
     emit (change_score(score));
     return list_board;

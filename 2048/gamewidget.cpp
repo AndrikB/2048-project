@@ -176,19 +176,16 @@ void GameWidget::paintEvent(QPaintEvent *)
 
     if (list_board.size()==1){
         timer.stop();
-        //todo set "check lose" here
+        if (game->check_game_over()){
+            emit (endGame(game->get_score()));
+        }
+
         return;
     }
     list_board.removeFirst();
 
 }
 
-
-void GameWidget::end_game(int score)
-{
-    emit (endGame(score));
-
-}
 
 void GameWidget::change_score(int score)
 {

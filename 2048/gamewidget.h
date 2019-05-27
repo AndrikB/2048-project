@@ -17,7 +17,7 @@ public:
     void new_game(int width, int height);
 
 signals:
-    void endGame(int score);
+    void endGame(int);
     void changeScore(int score);
 
 public slots:
@@ -40,7 +40,6 @@ private:
 
 
 private slots:
-    void end_game(int);
     void change_score(int);
 
 };
