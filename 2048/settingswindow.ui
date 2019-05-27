@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>350</width>
+    <height>165</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="count_width_spinBox"/>
+        <widget class="QSpinBox" name="count_width_spinBox">
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -40,7 +47,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="count_height_spinBox"/>
+        <widget class="QSpinBox" name="count_height_spinBox">
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
