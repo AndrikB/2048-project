@@ -10,11 +10,25 @@ GameWindow::GameWindow(QWidget *parent) :
     ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
-    gw = new GameWidget(4, 4, this);
+    gw = new GameWidget(this);
     ui->gameLayout->addWidget(gw);
-    new_game(count_width,count_height);
+
     connect(gw, SIGNAL(changeScore(int)), this, SLOT(change_score(int)));
     connect(gw, SIGNAL(endGame(int)), this, SLOT(end_game(int)));
+    gw->move(Game::none);
+
+    score_FileName=score_fileName(count_width, count_height);
+    QFile f1(score_FileName);
+    if (!f1.open(QFile::ReadOnly)){
+        ui->HightScore->setText("Hight score: 0");
+        return;
+    }
+    QTextStream txt(&f1);
+    int HightScore;
+    txt>>HightScore;
+    ui->HightScore->setText("Hight score: "+QString::number(HightScore));
+    f1.close();
+
 }
 
 GameWindow::~GameWindow()
@@ -55,6 +69,11 @@ void GameWindow::keyPressEvent(QKeyEvent *e)
     if(e->key()==Qt::Key_Right) gw->move(Game::Move::right);
     if(e->key()==Qt::Key_Up) gw->move(Game::Move::top);
     if(e->key()==Qt::Key_Down) gw->move(Game::Move::bottom);
+}
+
+void GameWindow::closeEvent(QCloseEvent *)
+{
+    gw->save_game();
 }
 
 QString GameWindow::score_fileName(int width, int height)

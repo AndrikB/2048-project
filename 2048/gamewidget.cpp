@@ -1,22 +1,55 @@
 #include "gamewidget.h"
 #include <QPainter>
 #include <QMouseEvent>
-GameWidget::GameWidget(int width, int height, QWidget *parent) : QWidget(parent)
+GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
 {
-
     QPalette palette;
-    //palette.setColor(QPalette::Background, Qt::black);
     setPalette(palette);
     setAutoFillBackground(true);
 
-    count_width=width;
-    count_height=height;
-    game=new Game(width,height);
-    connect(game, SIGNAL(end_game(int)), this, SLOT(end_game(int)));
+    QFile fout("file.txt");
+    bool correct_read=false;
+    if (fout.open(QFile::ReadOnly))
+    {
+        qDebug()<<0;
+        correct_read=true;
+        QTextStream out(&fout);
+        int score;
+        QVector<QVector<qint8>> elements;
+        out>>count_width>>count_height>>score;
+        elements.fill(QVector<qint8>(count_width, 0), count_height);
+        int c;
+
+        qDebug()<<count_width<<count_height;
+        for (int i=0;i<count_width;i++)
+            for(int j=0;j<count_height;j++){
+                if (out.atEnd())correct_read=false;
+                out>>c; elements[i][j]=static_cast<qint8>(c); //todo delete c
+            }
+
+        if (correct_read)
+            game=new Game(score, elements);
+    }
+    if (!correct_read)
+    {
+        game=new Game(4,4);
+        count_width=4;
+        count_height=4;
+    }
     connect(game, SIGNAL(change_score(int)), this, SLOT(change_score(int)));
-    move(Game::Move::none);
-    update();
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+}
+
+void GameWidget::save_game()
+{
+     QFile fin("file.txt");
+     fin.open(QFile::WriteOnly|QFile::Truncate);
+     QTextStream in(&fin);
+     in<<count_width<<' '<<count_height<<' '<<game->get_score();
+     for (int i=0;i<count_width;i++)
+         for(int j=0;j<count_height;j++)
+                in<<' '<<list_board.last()[i][j];
+     fin.close();
 }
 
 void GameWidget::mousePressEvent(QMouseEvent * e)
@@ -28,8 +61,8 @@ void GameWidget::mouseReleaseEvent(QMouseEvent * e)
 {
     QPoint endPos = e->pos();
     if (endPos==startPos)return;
-    float dX = (float)(endPos.x() - startPos.x());
-    float dY = (float)(endPos.y() - startPos.y());
+    int dX = (endPos.x() - startPos.x());
+    int dY = (endPos.y() - startPos.y());
     if(abs(dX) > abs(dY)){
         if(dX > 0)
             move (Game::Move::right);
@@ -48,7 +81,7 @@ void GameWidget::move(Game::Move move_to)
     list_board=game->move(move_to);
 
 
-    timer.start(50);//todo change for best visualization
+    timer.start(50);
 
 
 }
@@ -80,11 +113,11 @@ void GameWidget::new_game(int width, int height)
     count_width=width;
     count_height=height;
     game=new Game(width,height);
-    connect(game, SIGNAL(end_game(int)), this, SLOT(end_game(int)));
     connect(game, SIGNAL(change_score(int)), this, SLOT(change_score(int)));
     move(Game::Move::none);
     update();update();update();
 }
+
 
 
 
@@ -175,11 +208,13 @@ void GameWidget::paintEvent(QPaintEvent *)
 
 
     if (list_board.size()==1){
+        qDebug()<<"i m here 1";
         timer.stop();
         if (game->check_game_over()){
+            qDebug()<<"i m here 2";
             emit (endGame(game->get_score()));
         }
-
+        qDebug()<<"end be here 1";
         return;
     }
     list_board.removeFirst();
