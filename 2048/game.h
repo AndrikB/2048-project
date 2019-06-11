@@ -14,6 +14,7 @@ class Game:public QObject
     Q_OBJECT
 public:
     Game(int width, int height);
+    Game(int score, QVector<QVector<qint8>> elements);
 
     enum Move{
         right,

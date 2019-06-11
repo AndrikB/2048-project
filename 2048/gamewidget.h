@@ -9,12 +9,13 @@ class GameWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameWidget(int count_width, int count_height, QWidget *parent );
+    GameWidget(QWidget* parent);
 
     void move(Game::Move move_to);
     void change_images(QImage big_image);
     void clear_images();
     void new_game(int width, int height);
+    void save_game();
 
 signals:
     void endGame(int);
@@ -29,10 +30,10 @@ private:
     int count_width, count_height;
 
     QPoint startPos;
-    void mousePressEvent(QMouseEvent * );
-    void mouseReleaseEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent * ) ;
+    void mouseReleaseEvent(QMouseEvent *) ;
 
-    void paintEvent(QPaintEvent*);
+    void paintEvent(QPaintEvent*) ;
     QColor return_color_cell(int i);
     QColor return_color_text(int i);
 

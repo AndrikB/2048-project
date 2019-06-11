@@ -44,6 +44,7 @@ private slots:
 
 private:
     void keyPressEvent(QKeyEvent*);
+    void closeEvent(QCloseEvent*e);
     QString score_fileName(int width, int height);
     QString score_FileName;
     Ui::GameWindow *ui;

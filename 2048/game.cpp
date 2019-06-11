@@ -13,6 +13,12 @@ Game::Game(int width, int height )
 
 }
 
+Game::Game(int score, QVector<QVector<qint8>> elements)
+{
+    this->score=score;
+    this->elements=elements;
+}
+
 bool Game::check_game_over() const
 {
     int height=elements.size();
@@ -164,6 +170,7 @@ bool Game::move_down()
 QList<QVector<QVector<qint8>>> Game::move(Move direction)
 {
     qDebug()<<"game::move";
+    emit change_score(score);
     if (direction==Move::none) return QList<QVector<QVector<qint8>>>{elements};
 
     QList<QVector<QVector<qint8>>> list_board;
