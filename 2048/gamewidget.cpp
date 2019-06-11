@@ -170,7 +170,7 @@ QColor GameWidget::return_color_text(int i)
 }
 
 
-void GameWidget::paintEvent(QPaintEvent *)
+void GameWidget::paintEvent(QPaintEvent * )
 {
     if(list_board.isEmpty())return;
     int buf=qMin(width(), height())/50;
@@ -208,13 +208,11 @@ void GameWidget::paintEvent(QPaintEvent *)
 
 
     if (list_board.size()==1){
-        qDebug()<<"i m here 1";
+        if (!timer.isActive()) return;
         timer.stop();
         if (game->check_game_over()){
-            qDebug()<<"i m here 2";
             emit (endGame(game->get_score()));
         }
-        qDebug()<<"end be here 1";
         return;
     }
     list_board.removeFirst();
