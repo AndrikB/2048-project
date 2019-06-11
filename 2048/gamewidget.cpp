@@ -14,21 +14,27 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
         qDebug()<<0;
         correct_read=true;
         QTextStream out(&fout);
+
+
         int score;
         QVector<QVector<qint8>> elements;
         out>>count_width>>count_height>>score;
-        elements.fill(QVector<qint8>(count_width, 0), count_height);
-        int c;
+        if (out.atEnd()){correct_read=false;}
+        else {
+            elements.fill(QVector<qint8>(count_width, 0), count_height);
+            int c;
 
-        qDebug()<<count_width<<count_height;
-        for (int i=0;i<count_width;i++)
-            for(int j=0;j<count_height;j++){
-                if (out.atEnd())correct_read=false;
-                out>>c; elements[i][j]=static_cast<qint8>(c); //todo delete c
-            }
+            qDebug()<<count_width<<count_height;
+            for (int i=0;i<count_height;i++)
+                for(int j=0;j<count_width;j++){
+                    if (out.atEnd())correct_read=false;
+                    out>>c; elements[i][j]=static_cast<qint8>(c); //todo delete c
+                }
 
-        if (correct_read)
-            game=new Game(score, elements);
+            if (correct_read)
+                game=new Game(score, elements);
+        }
+
     }
     if (!correct_read)
     {
@@ -46,8 +52,8 @@ void GameWidget::save_game()
      fin.open(QFile::WriteOnly|QFile::Truncate);
      QTextStream in(&fin);
      in<<count_width<<' '<<count_height<<' '<<game->get_score();
-     for (int i=0;i<count_width;i++)
-         for(int j=0;j<count_height;j++)
+     for (int i=0;i<count_height ;i++)
+         for(int j=0;j<count_width;j++)
                 in<<' '<<list_board.last()[i][j];
      fin.close();
 }
