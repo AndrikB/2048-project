@@ -58,6 +58,11 @@ void GameWidget::save_game()
      fin.close();
 }
 
+QSize GameWidget::getSize() const
+{
+    return QSize(count_width, count_height);
+}
+
 void GameWidget::mousePressEvent(QMouseEvent * e)
 {
     startPos = e->pos();

@@ -17,6 +17,10 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(gw, SIGNAL(endGame(int)), this, SLOT(end_game(int)));
     gw->move(Game::none);
 
+    QSize s=gw->getSize();
+    count_width=s.width();
+    count_height=s.height();
+
     score_FileName=score_fileName(count_width, count_height);
     QFile f1(score_FileName);
     if (!f1.open(QFile::ReadOnly)){
@@ -39,26 +43,14 @@ GameWindow::~GameWindow()
 void GameWindow::change_score(int score)
 {
     ui->Score->setText("Score: "+QString::number(score));
+    change_hight_score(score);
 }
 
 void GameWindow::end_game(int score)
 {
     change_score(score);
     QMessageBox::information(this, "You lose", "Start new game");
-    int HightScore=-1;
-    QFile f1(score_FileName);
-    if (f1.open(QFile::ReadOnly)){
-        QTextStream txt(&f1);
-        txt>>HightScore;
-        f1.close();
-    }
-
-    if (score>HightScore){
-        f1.open(QFile::WriteOnly|QFile::Truncate);
-        QTextStream txt(&f1);
-        txt<<score;
-        f1.close();
-    }
+    change_hight_score(score);
     new_game(count_width, count_height);
 }
 
@@ -74,6 +66,26 @@ void GameWindow::keyPressEvent(QKeyEvent *e)
 void GameWindow::closeEvent(QCloseEvent *)
 {
     gw->save_game();
+}
+
+void GameWindow::change_hight_score(int score)
+{
+    int HightScore=-1;
+    QFile f1(score_FileName);
+    if (f1.open(QFile::ReadOnly)){
+        QTextStream txt(&f1);
+        txt>>HightScore;
+        f1.close();
+    }
+
+    if (score>HightScore){
+        f1.open(QFile::WriteOnly|QFile::Truncate);
+        QTextStream txt(&f1);
+        txt<<score;
+        f1.close();
+    }
+
+    ui->HightScore->setText("Hight score: "+QString::number(HightScore));
 }
 
 QString GameWindow::score_fileName(int width, int height)

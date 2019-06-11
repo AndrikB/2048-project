@@ -17,6 +17,8 @@ public:
     void new_game(int width, int height);
     void save_game();
 
+    QSize getSize()const;
+
 signals:
     void endGame(int);
     void changeScore(int score);
