@@ -79,13 +79,14 @@ void GameWindow::change_hight_score(int score)
     }
 
     if (score>HightScore){
+        HightScore=score;
         f1.open(QFile::WriteOnly|QFile::Truncate);
         QTextStream txt(&f1);
         txt<<score;
         f1.close();
     }
 
-    ui->HightScore->setText("Hight score: "+QString::number(score));
+    ui->HightScore->setText("Hight score: "+QString::number(HightScore));
 }
 
 QString GameWindow::score_fileName(int width, int height)
