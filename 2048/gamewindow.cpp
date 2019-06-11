@@ -85,7 +85,7 @@ void GameWindow::change_hight_score(int score)
         f1.close();
     }
 
-    ui->HightScore->setText("Hight score: "+QString::number(HightScore));
+    ui->HightScore->setText("Hight score: "+QString::number(score));
 }
 
 QString GameWindow::score_fileName(int width, int height)
